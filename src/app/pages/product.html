@@ -1,0 +1,124 @@
+@if (product(); as p) {
+  <section class="detail" [style.--tint]="p.color">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta">
+        <a routerLink="/">Inicio</a> <span>/</span> <a routerLink="/tienda">Tienda</a> <span>/</span>
+        <span aria-current="page">{{ p.name }}</span>
+      </nav>
+
+      <div class="layout">
+        <div class="gallery grain">
+          @if (p.tag) {
+            <span class="badge">{{ p.tag }}</span>
+          }
+          <app-bag-art class="big" [name]="p.name" [color]="p.color" [accent]="p.accent" [roast]="p.roast" />
+          <ul class="floating">
+            @for (n of p.notes; track n; let i = $index) {
+              <li [style.--i]="i">{{ n }}</li>
+            }
+          </ul>
+        </div>
+
+        <div class="info">
+          <p class="origin"><app-icon name="pin" [size]="16" /> {{ p.farm }} · {{ p.town }}</p>
+          <h1>{{ p.name }}</h1>
+          <div class="rating">
+            @for (s of [1, 2, 3, 4, 5]; track s) {
+              <app-icon name="star" [size]="16" />
+            }
+            <span>4,9 · 186 reseñas</span>
+          </div>
+          <p class="price">{{ p.price | cop }} <small>/ {{ p.weight }}</small></p>
+          <p class="desc">{{ p.description }}</p>
+
+          <fieldset class="opt">
+            <legend>Molienda</legend>
+            <div class="grinds">
+              @for (g of grinds; track g) {
+                <button type="button" [class.on]="grind() === g" [attr.aria-pressed]="grind() === g" (click)="grind.set(g)">{{ g }}</button>
+              }
+            </div>
+          </fieldset>
+
+          <div class="buy">
+            <div class="qty" role="group" aria-label="Cantidad">
+              <button type="button" (click)="qty.set(qty() > 1 ? qty() - 1 : 1)" aria-label="Menos"><app-icon name="minus" [size]="16" /></button>
+              <span>{{ qty() }}</span>
+              <button type="button" (click)="qty.set(qty() + 1)" aria-label="Más"><app-icon name="plus" [size]="16" /></button>
+            </div>
+            <button class="btn add" type="button" (click)="add()"><app-icon name="cart" /> Agregar · {{ p.price * qty() | cop }}</button>
+          </div>
+
+          <ul class="perks">
+            <li><app-icon name="truck" /> <span><b>Envío en 48 h</b> a toda Colombia</span></li>
+            <li><app-icon name="flame" /> <span><b>Tostado</b> hace menos de 7 días</span></li>
+            <li><app-icon name="leaf" /> <span><b>Empaque</b> compostable con válvula</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="container specs">
+      <div>
+        <span class="eyebrow">Ficha técnica</span>
+        <dl class="sheet">
+          <div><dt>Finca</dt><dd>{{ p.farm }}</dd></div>
+          <div><dt>Región</dt><dd>{{ p.town }}</dd></div>
+          <div><dt>Variedad</dt><dd>{{ p.variety }}</dd></div>
+          <div><dt>Proceso</dt><dd>{{ p.process }}</dd></div>
+          <div><dt>Altura</dt><dd>{{ p.altitude }}</dd></div>
+          <div><dt>Tostión</dt><dd>{{ p.roast }}</dd></div>
+        </dl>
+      </div>
+      <div>
+        <span class="eyebrow">Perfil de taza</span>
+        <div class="bars">
+          @for (k of profileKeys; track k.key) {
+            <div class="bar">
+              <span>{{ k.label }}</span>
+              <div class="dots" [attr.aria-label]="k.label + ': ' + p.profile[k.key] + ' de 5'">
+                @for (d of [1, 2, 3, 4, 5]; track d) {
+                  <i [class.on]="d <= p.profile[k.key]"></i>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Cómo prepararlo</span>
+        <ul class="brews">
+          @for (b of p.brew; track b.method) {
+            <li>
+              <app-icon name="cup" [size]="22" />
+              <strong>{{ b.method }}</strong>
+              <span>{{ b.ratio }} · {{ b.time }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>También te puede gustar</h2>
+        <a routerLink="/tienda" class="link-arrow">Ver tienda <app-icon name="arrow" [size]="18" /></a>
+      </div>
+      <div class="related">
+        @for (r of related(); track r.slug) {
+          <app-product-card [product]="r" />
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="section container notfound">
+    <h1>Este café ya se agotó</h1>
+    <p class="lead">No encontramos el producto que buscas.</p>
+    <a routerLink="/tienda" class="btn">Volver a la tienda</a>
+  </section>
+}

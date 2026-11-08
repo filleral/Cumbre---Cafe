@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframes · Cumbre</title>
+<style>
+  :root { --l: #c9c9c9; --m: #9a9a9a; --d: #555; --bg: #f4f4f4; --w: #fff; --acc: #e36b4f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--d); font-size: 13px; }
+  .c { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .box { border: 2px solid var(--m); background: var(--w); border-radius: 6px; position: relative; }
+  .img { background: var(--w); border: 2px solid var(--m); border-radius: 6px; position: relative; overflow: hidden; min-height: 80px; }
+  .img::before, .img::after { content: ''; position: absolute; top: 50%; left: 50%; width: 140%; height: 2px; background: var(--l); transform-origin: center; }
+  .img::before { transform: translate(-50%, -50%) rotate(var(--a, 32deg)); }
+  .img::after { transform: translate(-50%, -50%) rotate(calc(var(--a, 32deg) * -1)); }
+  .img span { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--w); padding: 2px 8px; font-weight: 700; font-size: 11px; letter-spacing: .08em; color: var(--m); white-space: nowrap; }
+  .t { height: 10px; background: var(--l); border-radius: 4px; margin: 8px 0; }
+  .t.s { width: 40%; } .t.m { width: 70%; } .t.x { width: 90%; }
+  .h { height: 22px; background: var(--m); border-radius: 4px; margin: 10px 0; }
+  .h.big { height: 38px; } .h.s { width: 55%; }
+  .lab { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 18px; border-radius: 99px; border: 2px solid var(--d); font-weight: 700; font-size: 11px; background: var(--w); }
+  .btn.p { background: var(--d); color: var(--w); }
+  .row { display: flex; gap: 16px; align-items: center; }
+  .g { display: grid; gap: 16px; }
+  .sec { padding: 40px 0; border-bottom: 2px dashed var(--l); position: relative; }
+  .sec.dark { background: #ddd; }
+  .note { position: absolute; right: 8px; top: 8px; background: #fff3c4; border: 1px solid #e0c96a; color: #6b5a12; font-size: 10px; padding: 3px 7px; border-radius: 3px; font-weight: 700; z-index: 3; }
+  .num { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--acc); color: #fff; font-size: 10px; font-weight: 800; margin-right: 6px; }
+  /* header */
+  .top { background: var(--d); color: #fff; text-align: center; font-size: 10px; padding: 6px; }
+  header .c { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { width: 120px; height: 30px; border: 2px solid var(--d); border-radius: 6px; display: grid; place-items: center; font-weight: 800; font-size: 11px; }
+  nav { display: flex; gap: 18px; } nav i { width: 60px; height: 10px; background: var(--m); border-radius: 4px; display: block; }
+  .ico { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--d); }
+  .burger { display: none; width: 30px; height: 22px; border-top: 3px solid var(--d); border-bottom: 3px solid var(--d); position: relative; }
+  .burger::after { content: ''; position: absolute; left: 0; right: 0; top: 7px; height: 3px; background: var(--d); }
+  footer { background: #cfcfcf; padding: 40px 0; }
+  .cols4 { grid-template-columns: repeat(4, 1fr); } .cols3 { grid-template-columns: repeat(3, 1fr); } .cols2 { grid-template-columns: 1fr 1fr; }
+  .card { padding: 12px; } .card .img { aspect-ratio: 1; }
+  .filters { width: 220px; flex-shrink: 0; padding: 16px; align-self: flex-start; }
+  .field { height: 38px; border: 2px solid var(--l); border-radius: 6px; margin: 6px 0 14px; background: #fff; }
+  .field.area { height: 100px; }
+  .chip { display: inline-block; width: 70px; height: 24px; border-radius: 99px; border: 2px solid var(--l); margin: 0 6px 6px 0; }
+  .hide-m { } .show-m { display: none; }
+  .title-page { padding: 36px 0 28px; background: #e6e6e6; }
+  @media (max-width: 960px) {
+    nav, .cta-h { display: none; } .burger { display: block; }
+    .cols4 { grid-template-columns: 1fr 1fr; }
+    .t-1 { grid-template-columns: 1fr !important; }
+    .filters { display: none; } .show-t { display: inline-flex !important; }
+    .cols3.t2 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .cols3, .cols2, .cols4.m1 { grid-template-columns: 1fr; }
+    .cols3.t2 { grid-template-columns: 1fr; }
+    .hide-m { display: none !important; } .show-m { display: block; }
+    .m-stack { flex-direction: column; align-items: stretch !important; }
+    .m-stack .btn { width: 100%; }
+    .h.big { height: 30px; }
+    .scroll { display: flex !important; overflow: hidden; } .scroll > * { flex: 0 0 75%; }
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const P = new URLSearchParams(location.search).get('p') || 'home';
+const img = (label, style = '') => `<div class="img" style="${style}"><span>${label}</span></div>`;
+const txt = (n = 3) => Array.from({ length: n }, (_, i) => `<div class="t ${['x', 'm', 's'][i % 3]}"></div>`).join('');
+const note = (n, t) => `<div class="note"><span class="num">${n}</span>${t}</div>`;
+const header = `
+  <div class="top">BARRA DE ANUNCIO · ENVÍO GRATIS</div>
+  <header class="box" style="border-radius:0;border-width:0 0 2px"><div class="c">
+    <div class="logo">LOGO</div>
+    <nav><i></i><i></i><i></i><i></i><i></i></nav>
+    <div class="row"><span class="btn p cta-h">CTA RESERVA</span><span class="ico"></span><span class="burger"></span></div>
+  </div></header>`;
+const footer = `
+  <footer><div class="c">
+    <div class="box row m-stack" style="padding:20px;justify-content:space-between;margin-bottom:28px"><div style="flex:1"><div class="h s"></div>${txt(1)}</div><div class="row" style="flex:1"><div class="field" style="flex:1;margin:0"></div><span class="btn p">SUSCRIBIR</span></div></div>
+    <div class="g cols4">${['MARCA + REDES', 'TIENDA', 'CUMBRE', 'CONTACTO'].map(l => `<div><div class="lab">${l}</div>${txt(4)}</div>`).join('')}</div>
+  </div></footer>`;
+const productCard = (i) => `<div class="box card">${img('FOTO EMPAQUE', '--a:45deg')}<div class="t s"></div><div class="h" style="height:14px"></div><div class="row"><span class="chip" style="width:50px"></span><span class="chip" style="width:50px"></span></div><div class="row" style="justify-content:space-between"><div class="h" style="width:60px;height:16px"></div><span class="btn p" style="height:28px">+ AGREGAR</span></div></div>`;
+const pageTitle = (l) => `<section class="title-page sec">${note(1, 'Encabezado de página')}<div class="c"><div class="lab">${l}</div><div class="h big s"></div>${txt(2)}</div></section>`;
+
+const pages = {
+  home: `
+    <section class="sec">${note(1, 'Hero + propuesta de valor')}<div class="c g cols2 t-1" style="align-items:center">
+      <div><div class="lab">Eyebrow</div><div class="h big"></div><div class="h big s"></div>${txt(3)}
+        <div class="row m-stack" style="margin:18px 0"><span class="btn p">CTA PRIMARIO · COMPRAR</span><span class="btn">CTA SECUNDARIO · RESERVAR</span></div>
+        <div class="row" style="justify-content:space-between;max-width:360px"><div><div class="h" style="width:50px"></div><div class="t" style="width:70px"></div></div><div><div class="h" style="width:50px"></div><div class="t" style="width:70px"></div></div><div><div class="h" style="width:50px"></div><div class="t" style="width:70px"></div></div></div>
+      </div>
+      ${img('ILUSTRACIÓN HERO (ARCO)', 'aspect-ratio:5/5;border-radius:200px 200px 10px 10px')}
+    </div></section>
+    <div style="background:#bbb;padding:14px;text-align:center;font-weight:800;font-size:11px;letter-spacing:.2em">MARQUESINA DE NOTAS DE SABOR →</div>
+    <section class="sec">${note(2, 'Beneficios (3 columnas)')}<div class="c g cols3">${[1, 2, 3].map(() => `<div class="box" style="padding:18px"><div class="ico" style="border-radius:8px"></div><div class="h" style="height:14px;width:60%"></div>${txt(2)}</div>`).join('')}</div></section>
+    <section class="sec">${note(3, 'Productos destacados')}<div class="c"><div class="row" style="justify-content:space-between"><div><div class="lab">Nuestros cafés</div><div class="h" style="width:240px"></div></div><div class="t" style="width:90px"></div></div>
+      <div class="g cols4 scroll" style="margin-top:16px">${[1, 2, 3, 4].map(productCard).join('')}</div></div></section>
+    <section class="sec dark">${note(4, 'Proceso en 4 pasos')}<div class="c"><div class="lab">Del grano a la taza</div><div class="h" style="width:50%"></div><div class="g cols4 m1" style="margin-top:16px">${['01', '02', '03', '04'].map(n => `<div class="box" style="padding:16px"><div class="h" style="width:36px"></div>${txt(2)}</div>`).join('')}</div></div></section>
+    <section class="sec">${note(5, 'Suscripción (conversión)')}<div class="c"><div class="box g cols2 t-1" style="padding:24px;background:#e3e3e3"><div><div class="lab">Club</div><div class="h"></div>${txt(4)}</div><div class="box" style="padding:16px"><div class="field"></div><div class="field"></div><span class="btn p" style="width:100%">CTA UNIRME</span></div></div></div></section>
+    <section class="sec">${note(6, 'Experiencias')}<div class="c"><div class="h" style="width:40%"></div><div class="g cols3 t2" style="margin-top:16px">${[1, 2, 3].map(() => `<div class="box">${img('ILUSTRACIÓN', 'aspect-ratio:10/7;border-width:0 0 2px')}<div style="padding:12px"><span class="chip"></span><div class="h" style="height:14px"></div><div class="t m"></div></div></div>`).join('')}</div></div></section>
+    <section class="sec">${note(7, 'Testimonios / prueba social')}<div class="c"><div class="h" style="width:50%;margin:0 auto 16px"></div><div class="g cols3 t2">${[1, 2, 3].map(() => `<div class="box" style="padding:16px">${txt(4)}<div class="row"><span class="ico"></span><div class="t" style="width:80px"></div></div></div>`).join('')}</div></div></section>`,
+  tienda: `
+    ${pageTitle('Tienda')}
+    <section class="sec">${note(2, 'Filtros + buscador + grilla')}<div class="c row" style="align-items:flex-start;gap:24px">
+      <aside class="box filters"><div class="lab">Tostión</div>${txt(3)}<div class="lab" style="margin-top:14px">Proceso</div>${txt(4)}<div class="lab" style="margin-top:14px">Precio</div><div class="t x"></div></aside>
+      <div style="flex:1"><span class="btn show-t" style="display:none;margin-bottom:12px">☰ FILTROS</span>
+        <div class="row m-stack" style="margin-bottom:16px"><div class="field" style="flex:1;margin:0;border-radius:99px"></div><div class="field" style="width:160px;margin:0;border-radius:99px"></div></div>
+        <div class="g cols3 t2" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">${[1, 2, 3, 4, 5, 6].map(productCard).join('')}</div>
+      </div></div></section>`,
+  producto: `
+    <section class="sec">${note(1, 'Galería + compra')}<div class="c"><div class="t" style="width:200px"></div>
+      <div class="g cols2 t-1" style="margin-top:12px">${img('IMAGEN PRODUCTO', 'aspect-ratio:1')}
+        <div><div class="t s"></div><div class="h big"></div><div class="t" style="width:120px"></div><div class="h" style="width:120px"></div>${txt(4)}
+          <div class="lab" style="margin-top:14px">Molienda</div><div><span class="chip"></span><span class="chip"></span><span class="chip"></span><span class="chip"></span></div>
+          <div class="row m-stack" style="margin:14px 0"><span class="btn" style="width:120px">− 1 +</span><span class="btn p" style="flex:1">CTA AGREGAR AL CARRITO</span></div>
+          ${txt(3)}</div></div></div></section>
+    <section class="sec">${note(2, 'Ficha técnica · perfil · preparación')}<div class="c g cols3">
+      <div><div class="lab">Ficha técnica</div><div class="g cols2">${[1, 2, 3, 4, 5, 6].map(() => `<div><div class="t s"></div><div class="h" style="height:14px"></div></div>`).join('')}</div></div>
+      <div><div class="lab">Perfil de taza</div>${[1, 2, 3, 4].map(() => `<div class="row" style="justify-content:space-between"><div class="t" style="width:60px"></div><div class="t" style="width:120px;background:#999"></div></div>`).join('')}</div>
+      <div><div class="lab">Preparación</div>${[1, 2].map(() => `<div class="box" style="height:40px;margin:8px 0"></div>`).join('')}</div></div></section>
+    <section class="sec">${note(3, 'Productos relacionados')}<div class="c"><div class="h" style="width:40%"></div><div class="g cols3 t2">${[1, 2, 3].map(productCard).join('')}</div></div></section>`,
+  experiencias: `
+    ${pageTitle('Experiencias')}
+    <section class="sec">${note(2, 'Experiencias alternadas (zig-zag)')}<div class="c g" style="gap:32px">${[0, 1].map(i => `<div class="g cols2 t-1" style="align-items:center">${i ? '' : img('ILUSTRACIÓN', 'aspect-ratio:10/8')}<div><span class="chip"></span><div class="h"></div>${txt(3)}<div class="row"><div class="t" style="width:60px"></div><div class="t" style="width:60px"></div><div class="t" style="width:60px"></div></div><div class="row m-stack" style="justify-content:space-between;margin-top:14px"><div class="h" style="width:90px"></div><span class="btn p">CTA RESERVAR</span></div></div>${i ? img('ILUSTRACIÓN', 'aspect-ratio:10/8') : ''}</div>`).join('')}</div></section>
+    <section class="sec dark">${note(3, 'Formulario de reserva')}<div class="c g cols2 t-1"><div><div class="lab">Reserva</div><div class="h"></div>${txt(2)}<div class="box" style="height:110px;margin-top:12px"></div></div>
+      <div class="box" style="padding:18px"><div class="field"></div><div class="g cols2"><div class="field"></div><div class="field"></div></div><div class="field"></div><div class="g cols2"><div class="field"></div><div class="field"></div></div><span class="btn p" style="width:100%">CTA SOLICITAR RESERVA</span></div></div></section>
+    <section class="sec">${note(4, 'Preguntas frecuentes (acordeón)')}<div class="c g cols2 t-1"><div class="h"></div><div>${[1, 2, 3, 4].map(() => `<div class="row" style="justify-content:space-between;border-bottom:2px solid #ccc;padding:12px 0"><div class="t m" style="margin:0"></div><b>⌄</b></div>`).join('')}</div></div></section>`,
+  contacto: `
+    ${pageTitle('Contacto')}
+    <section class="sec">${note(2, 'Formulario + datos + mapa')}<div class="c g t-1" style="grid-template-columns:1.3fr 1fr">
+      <div class="box" style="padding:20px"><div class="h s"></div><div class="g cols2"><div><div class="t s"></div><div class="field"></div></div><div><div class="t s"></div><div class="field"></div></div></div>
+        <div class="t s"></div><div><span class="chip"></span><span class="chip"></span><span class="chip"></span><span class="chip"></span></div><div class="t s"></div><div class="field area"></div><span class="btn p" style="width:100%">CTA ENVIAR</span></div>
+      <div>${img('MAPA', 'aspect-ratio:16/10')}<div class="g cols2" style="margin-top:12px">${[1, 2, 3, 4].map(() => `<div class="box" style="padding:12px"><div class="t s"></div><div class="t m"></div></div>`).join('')}</div></div>
+    </div></section>`,
+};
+document.getElementById('app').innerHTML = header + (pages[P] || pages.home) + footer;
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!-- ===================== HERO ===================== -->
+<section class="hero grain">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Café de especialidad · Huila, Colombia</span>
+      <h1>Del corazón de la montaña <em>a tu taza.</em></h1>
+      <p class="lead">
+        Tostamos en pequeños lotes el café que cultivan 32 familias del sur del Huila. Trazable, fresco y pagado a
+        precio justo.
+      </p>
+      <div class="hero-ctas">
+        <a routerLink="/tienda" class="btn">Comprar café <app-icon name="arrow" /></a>
+        <a routerLink="/experiencias" fragment="reserva" class="btn btn--ghost">Reserva una cata</a>
+      </div>
+      <dl class="stats">
+        <div><dt>32</dt><dd>familias aliadas</dd></div>
+        <div><dt>1.950<small>m</small></dt><dd>altura máxima</dd></div>
+        <div><dt>86+</dt><dd>puntaje SCA</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-art">
+      <div class="arch">
+        <app-scene-art scene="hero" />
+      </div>
+      <div class="float-card">
+        <div class="mini-bag"><app-bag-art name="Geisha" color="#2f4a3a" accent="#d9a441" roast="Clara" /></div>
+        <div>
+          <span class="badge">Recién tostado</span>
+          <strong>Geisha La Esperanza</strong>
+          <small>Jazmín · Bergamota · Durazno</small>
+        </div>
+      </div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <defs><path id="circ" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0" /></defs>
+          <text font-size="11.5" font-weight="700" letter-spacing="3.2" fill="currentColor">
+            <textPath href="#circ">100% HUILA · TOSTADO FRESCO ·</textPath>
+          </text>
+        </svg>
+        <app-icon name="bean" [size]="30" [stroke]="1.6" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MARQUESINA ===================== -->
+<div class="marquee-wrap"><div class="marquee" aria-hidden="true">
+  <div class="track">
+    @for (round of [1, 2]; track round) {
+      @for (n of tasteNotes; track n) {
+        <span>{{ n }}</span><app-icon name="star" [size]="16" />
+      }
+    }
+  </div>
+</div></div>
+
+<!-- ===================== VALORES ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="values">
+      @for (v of values; track v.title; let i = $index) {
+        <article class="value" [reveal]="i * 120">
+          <div class="value-ico"><app-icon [name]="v.icon" [size]="28" /></div>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DESTACADOS ===================== -->
+<section class="section section--paper">
+  <div class="container">
+    <div class="section-head" reveal>
+      <div>
+        <span class="eyebrow">Nuestros cafés</span>
+        <h2>Los favoritos de la casa</h2>
+      </div>
+      <a routerLink="/tienda" class="link-arrow">Ver toda la tienda <app-icon name="arrow" [size]="18" /></a>
+    </div>
+    <div class="products">
+      @for (p of featured; track p.slug; let i = $index) {
+        <app-product-card [product]="p" [reveal]="i * 100" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESO ===================== -->
+<section class="section section--dark grain process">
+  <div class="container">
+    <div class="section-head" reveal>
+      <div>
+        <span class="eyebrow">Del grano a la taza</span>
+        <h2>Un camino de 2.800 km que cuidamos paso a paso</h2>
+      </div>
+      <p class="lead">Así viaja tu café desde las montañas del Macizo Colombiano hasta tu cocina.</p>
+    </div>
+    <ol class="steps">
+      @for (s of steps; track s.n; let i = $index) {
+        <li [reveal]="i * 120">
+          <span class="step-n">{{ s.n }}</span>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== SUSCRIPCIÓN ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="club grain" reveal>
+      <div class="club-copy">
+        <span class="eyebrow">Club Cumbre</span>
+        <h2>Nunca te quedes sin café</h2>
+        <p>Recibe un café distinto cada vez, elegido por nuestro tostador, con 15 % de descuento y envío gratis. Pausa o cancela cuando quieras.</p>
+        <ul class="perks">
+          <li><app-icon name="check" [size]="18" /> Microlotes exclusivos para miembros</li>
+          <li><app-icon name="check" [size]="18" /> Guía de preparación en cada envío</li>
+          <li><app-icon name="check" [size]="18" /> Acceso anticipado a catas y tours</li>
+        </ul>
+      </div>
+      <div class="club-card">
+        <p class="club-label">Elige tu frecuencia</p>
+        <div class="plans" role="radiogroup" aria-label="Frecuencia de suscripción">
+          @for (pl of plans; track pl.id) {
+            <button type="button" role="radio" [attr.aria-checked]="plan() === pl.id" [class.on]="plan() === pl.id" (click)="plan.set(pl.id)">
+              <span>{{ pl.label }}</span>
+              <strong>{{ pl.price | cop }}<small>/mes</small></strong>
+            </button>
+          }
+        </div>
+        <button class="btn btn--block" type="button" (click)="subscribeClub()"><app-icon name="repeat" /> Unirme al club</button>
+        <small class="club-note">Primera entrega en 48 horas · Sin permanencia</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCIAS ===================== -->
+<section class="section section--paper">
+  <div class="container">
+    <div class="section-head" reveal>
+      <div>
+        <span class="eyebrow">Experiencias</span>
+        <h2>Vive el café, no solo lo tomes</h2>
+      </div>
+      <a routerLink="/experiencias" class="link-arrow">Ver todas <app-icon name="arrow" [size]="18" /></a>
+    </div>
+    <div class="exps">
+      @for (e of experiences; track e.id; let i = $index) {
+        <a class="exp" routerLink="/experiencias" [fragment]="e.id" [reveal]="i * 120">
+          <div class="exp-art"><app-scene-art [scene]="e.scene" /></div>
+          <div class="exp-body">
+            <span class="chip">{{ e.kind }} · {{ e.duration }}</span>
+            <h3>{{ e.title }}</h3>
+            <p>Desde <strong>{{ e.price | cop }}</strong> por persona</p>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIOS ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center" reveal>
+      <div>
+        <span class="eyebrow">Lo que dicen</span>
+        <h2>4,9 de 5 en más de 1.200 reseñas</h2>
+      </div>
+    </div>
+    <div class="quotes">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <figure class="quote" [reveal]="i * 120">
+          <div class="stars">
+            @for (s of [1, 2, 3, 4, 5]; track s) {
+              <app-icon name="star" [size]="16" />
+            }
+          </div>
+          <blockquote>“{{ t.quote }}”</blockquote>
+          <figcaption>
+            <span class="avatar">{{ t.name.charAt(0) }}</span>
+            <span><strong>{{ t.name }}</strong><small>{{ t.city }}</small></span>
+          </figcaption>
+        </figure>
+      }
+    </div>
+  </div>
+</section>

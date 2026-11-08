@@ -1,0 +1,446 @@
+/* =========================================================
+   CUMBRE · Café de Origen — Sistema de diseño global
+   Autora: Heidy Tatiana Beltrán Ramírez · Diseño Web
+   ========================================================= */
+
+:root {
+  /* Paleta */
+  --espresso: #2a1810;
+  --espresso-2: #3d2418;
+  --cereza: #b8412c;
+  --cereza-2: #d4583f;
+  --crema: #f6efe4;
+  --crema-2: #ede2d1;
+  --papel: #fffaf3;
+  --montana: #2f4a3a;
+  --montana-2: #4c6b55;
+  --miel: #d9a441;
+  --tinta: #1d140f;
+  --gris: #6e6058;
+  --linea: rgba(42, 24, 16, 0.12);
+
+  /* Tipografía */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+
+  /* Escala */
+  --radius: 18px;
+  --radius-sm: 10px;
+  --radius-lg: 28px;
+  --shadow-sm: 0 2px 8px rgba(42, 24, 16, 0.06);
+  --shadow: 0 12px 32px -12px rgba(42, 24, 16, 0.25);
+  --shadow-lg: 0 30px 60px -20px rgba(42, 24, 16, 0.35);
+  --container: 1200px;
+  --header-h: 76px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--tinta);
+  background: var(--crema);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'SOFT' 50, 'WONK' 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+}
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+::selection {
+  background: var(--cereza);
+  color: var(--papel);
+}
+
+:focus-visible {
+  outline: 3px solid var(--miel);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section {
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+.section--dark {
+  background: var(--espresso);
+  color: var(--crema);
+}
+
+.section--paper {
+  background: var(--papel);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cereza);
+  margin-bottom: 16px;
+
+  &::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    background: currentColor;
+  }
+}
+
+.section--dark .eyebrow {
+  color: var(--miel);
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--gris);
+  max-width: 60ch;
+}
+
+.section--dark .lead {
+  color: rgba(246, 239, 228, 0.75);
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+
+  h2 {
+    margin: 0;
+    max-width: 18ch;
+  }
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  --bg: var(--cereza);
+  --fg: var(--papel);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 700;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease),
+    background 0.3s,
+    color 0.3s;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -10px var(--bg);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.btn--dark {
+  --bg: var(--espresso);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--espresso);
+  border-color: var(--espresso);
+
+  &:hover {
+    background: var(--espresso);
+    color: var(--crema);
+  }
+}
+
+.section--dark .btn--ghost {
+  color: var(--crema);
+  border-color: var(--crema);
+
+  &:hover {
+    background: var(--crema);
+    color: var(--espresso);
+  }
+}
+
+.btn--sm {
+  padding: 10px 18px;
+  font-size: 0.88rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--cereza);
+  border-bottom: 2px solid transparent;
+  transition: gap 0.3s var(--ease), border-color 0.3s;
+
+  &:hover {
+    gap: 14px;
+    border-color: currentColor;
+  }
+}
+
+/* ---------- Chips / badges ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--crema-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--espresso-2);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--miel);
+  color: var(--espresso);
+}
+
+/* ---------- Formularios ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--espresso-2);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--linea);
+    background: var(--papel);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--cereza);
+      box-shadow: 0 0 0 4px rgba(184, 65, 44, 0.12);
+    }
+  }
+
+  textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  .error {
+    font-size: 0.8rem;
+    color: var(--cereza);
+    font-weight: 600;
+  }
+
+  &.invalid input,
+  &.invalid select,
+  &.invalid textarea {
+    border-color: var(--cereza);
+  }
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 18px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Animaciones de entrada ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+  transition-delay: var(--d, 0ms);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Textura de grano sutil */
+.grain {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.09 0 0 0 0 0.06 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: -1;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Transiciones de vista entre páginas */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+}
+
+/* ---------- Encabezado de páginas internas ---------- */
+.page-hero {
+  padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 64px);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(217, 164, 65, 0.28), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(184, 65, 44, 0.12), transparent 40%),
+    var(--crema);
+  border-bottom: 1px solid var(--linea);
+
+  h1 {
+    margin-bottom: 16px;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--gris);
+  margin-bottom: 24px;
+
+  a:hover {
+    color: var(--cereza);
+  }
+}

@@ -1,0 +1,127 @@
+<section class="page-hero grain">
+  <div class="container hero-split">
+    <div>
+      <span class="eyebrow">Experiencias</span>
+      <h1>Aprende el café con todos los sentidos</h1>
+      <p class="lead">Catas, talleres y tours por las fincas donde nace tu café. Pequeños grupos, anfitriones caficultores y mucha conversación.</p>
+      <a routerLink="/experiencias" fragment="reserva" class="btn">Reservar ahora <app-icon name="calendar" /></a>
+    </div>
+    <ul class="hero-facts">
+      <li><strong>+2.400</strong><span>personas han catado con nosotros</span></li>
+      <li><strong>4,9</strong><span>calificación promedio</span></li>
+      <li><strong>3</strong><span>experiencias para elegir</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container list">
+    @for (e of list; track e.id; let odd = $odd) {
+      <article class="exp" [id]="e.id" [class.flip]="odd" reveal>
+        <div class="art"><app-scene-art [scene]="e.scene" /></div>
+        <div class="body">
+          <span class="chip">{{ e.kind }}</span>
+          <h2>{{ e.title }}</h2>
+          <p class="lead">{{ e.description }}</p>
+          <ul class="meta">
+            <li><app-icon name="clock" [size]="18" /> {{ e.duration }}</li>
+            <li><app-icon name="users" [size]="18" /> {{ e.people }}</li>
+            <li><app-icon name="pin" [size]="18" /> {{ e.place }}</li>
+          </ul>
+          <h4>Incluye</h4>
+          <ul class="includes">
+            @for (i of e.includes; track i) {
+              <li><app-icon name="check" [size]="16" /> {{ i }}</li>
+            }
+          </ul>
+          <div class="cta">
+            <p><small>Por persona</small><strong>{{ e.price | cop }}</strong></p>
+            <button class="btn" type="button" (click)="pick(e.id)">Reservar esta experiencia</button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="section section--dark grain" id="reserva">
+  <div class="container booking">
+    <div class="booking-copy">
+      <span class="eyebrow">Reserva</span>
+      <h2>Separa tu cupo en menos de un minuto</h2>
+      <p class="lead">Confirmamos por correo y WhatsApp en menos de 2 horas hábiles. El pago se hace al confirmar.</p>
+      <div class="summary">
+        <div><span>Experiencia</span><strong>{{ selected().title }}</strong></div>
+        <div><span>Duración</span><strong>{{ selected().duration }}</strong></div>
+        <div class="total"><span>Total estimado</span><strong>{{ total() | cop }}</strong></div>
+      </div>
+    </div>
+
+    <form class="booking-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (sent()) {
+        <div class="ok" role="status">
+          <app-icon name="check" [size]="22" />
+          <p>{{ sent() }}</p>
+          <button type="button" class="btn btn--sm btn--ghost" (click)="sent.set(null)">Hacer otra reserva</button>
+        </div>
+      } @else {
+        <div class="field">
+          <label for="exp">Experiencia</label>
+          <select id="exp" formControlName="experience">
+            @for (e of list; track e.id) {
+              <option [value]="e.id">{{ e.title }} · {{ e.price | cop }}</option>
+            }
+          </select>
+        </div>
+        <div class="grid-2">
+          <div class="field" [class.invalid]="invalid('date')">
+            <label for="date">Fecha</label>
+            <input id="date" type="date" formControlName="date" [min]="today" />
+            @if (invalid('date')) { <span class="error">Elige una fecha</span> }
+          </div>
+          <div class="field" [class.invalid]="invalid('people')">
+            <label for="people">Personas</label>
+            <input id="people" type="number" min="1" max="12" formControlName="people" />
+            @if (invalid('people')) { <span class="error">Entre 1 y 12 personas</span> }
+          </div>
+        </div>
+        <div class="field" [class.invalid]="invalid('name')">
+          <label for="name">Nombre completo</label>
+          <input id="name" type="text" formControlName="name" autocomplete="name" placeholder="¿Cómo te llamas?" />
+          @if (invalid('name')) { <span class="error">Escribe tu nombre</span> }
+        </div>
+        <div class="grid-2">
+          <div class="field" [class.invalid]="invalid('email')">
+            <label for="email">Correo</label>
+            <input id="email" type="email" formControlName="email" autocomplete="email" placeholder="tu@correo.com" />
+            @if (invalid('email')) { <span class="error">Correo no válido</span> }
+          </div>
+          <div class="field" [class.invalid]="invalid('phone')">
+            <label for="phone">Celular</label>
+            <input id="phone" type="tel" formControlName="phone" autocomplete="tel" placeholder="310 000 0000" />
+            @if (invalid('phone')) { <span class="error">Número no válido</span> }
+          </div>
+        </div>
+        <button class="btn btn--block" type="submit">Solicitar reserva <app-icon name="arrow" /></button>
+        <small class="note">Cancelación gratis hasta 48 h antes.</small>
+      }
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container faq">
+    <div>
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Todo lo que necesitas saber</h2>
+    </div>
+    <div class="faq-list">
+      @for (f of faqs; track f.q; let first = $first) {
+        <details [open]="first">
+          <summary>{{ f.q }} <app-icon name="chevron" /></summary>
+          <p>{{ f.a }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>
